@@ -40,7 +40,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVaraible Long id) {
+    public void deleteTask(@PathVariable Long id) {
         if (null==id) {
             // TODO: throw an error of some sort. An exception?
             return;

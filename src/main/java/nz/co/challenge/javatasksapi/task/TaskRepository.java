@@ -8,6 +8,6 @@ import java.util.Collection;
 
 @RepositoryRestResource()
 public interface TaskRepository extends PagingAndSortingRepository<Task, Long> {
-    @Query("SELECT t from Task t where t.DueDate > now()")
+    @Query("SELECT t from Task t where t.dueDate < CURRENT_DATE")
     Collection<Task> findOverdue();
 }
