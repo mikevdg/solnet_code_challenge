@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
-// TODO: Properly annotate this.
-
 @Entity
 public class Task {
     @Id

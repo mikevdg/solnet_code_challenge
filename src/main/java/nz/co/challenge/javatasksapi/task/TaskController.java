@@ -1,9 +1,10 @@
 package nz.co.challenge.javatasksapi.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/task")
@@ -22,29 +23,28 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Task> getTask(@PathVariable Long id) {
-        return taskRepository.findById(id);
+    public Task getTask(@PathVariable Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    // TODO: not sure about whether this api is properly REST.
     @PostMapping("/")
-    public Optional<Task> createTask(Task t) {
+    public ResponseEntity<Task> createTask(Task t) {
         taskRepository.save(t);
-        return Optional.of(t);
+        return new ResponseEntity<>(t, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public Optional<Task> modifyTask(Task t, @PathVariable Long id) {
+    public ResponseEntity<Task> modifyTask(Task t, @PathVariable Long id) {
         taskRepository.save(t);
-        return Optional.of(t);
+        return new ResponseEntity<>(t, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
         if (null==id) {
-            // TODO: throw an error of some sort. An exception?
-            return;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id must be provided.");
         }
-        taskRepository.deleteById(id);
+        taskRepository.deleteById(id); // TODO: What if it doesn't exist?
     }
 }
