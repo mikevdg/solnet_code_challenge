@@ -1,4 +1,4 @@
-package nz.co.challenge.javatasksapi.controllers;
+package nz.co.challenge.javatasksapi.task;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
